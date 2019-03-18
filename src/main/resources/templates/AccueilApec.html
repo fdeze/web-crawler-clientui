@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>EmploisFrictifs</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div class="container-fluid">
+		<h1 th:text="'EmploisFrictifs : ' + ${#lists.size(offres)} + ' r&eacute;sulats' "> </h1>
+ 		<div class="row">
+			<div th:each="offre : ${offres}" class="col-md-4 my-1"
+				style="border: 1px dotted black;">
+
+				<div class="row">
+				    <div class="col-md-9"><a th:href="@{${offre.url}}">	<p th:text="${offre.titre}"></p></a>
+				   </div>
+				   <div class="col-md-2"><img th:src="@{ ${offre.urlLogo} }" />
+				   </div>
+				</div> 
+				
+				
+				<p>
+					Salaire : 
+					<small><span th:text="${offre.salaire}"></span></small>
+				</p>
+				<p>
+					Entreprise : 
+					<small><span th:text="${offre.entreprise}"></span></small>
+				</p>
+				<p>
+					Adresse offre : 
+					<small><span th:text="${offre.adresse}"></span></small>
+					Adresse siege : 
+					<small><span th:text="${offre.adresseSiege}"></span></small>
+				</p>				
+								
+				
+				Description de l'offre : <small><p th:utext="${offre.texteHtml}"></p></small>
+				Profil: <small><p th:utext="${offre.texteProfil}"></p></small>
+				Description de l'entreprise : <small><p th:utext="${offre.texteEntreprise}"></p></small>		
+				
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
