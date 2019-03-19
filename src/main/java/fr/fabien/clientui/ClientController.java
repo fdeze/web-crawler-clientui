@@ -56,6 +56,8 @@ public class ClientController {
     public String accueilSilkhom(Model model){
     	logger.info("Envoi requête vers silkhom-microservice");
         List<SilkhomOfferVo> silkhomOfferList =  silkhomProxy.adsearchsilkhomOfferList();
+        logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
+       
         model.addAttribute("offres", silkhomOfferList);
         return "AccueilSilkhom";
     }
@@ -64,6 +66,8 @@ public class ClientController {
     public String accueilAdsearch(Model model){
     	logger.info("Envoi requête vers asearch-microservice");
         List<AdsearchOfferVo> adsearchOfferList =  adsearchProxy.adsearchOfferList();
+        logger.info("Retour requête vers asearch-microservice - nombre de résultats : {}", adsearchOfferList.size());
+
         model.addAttribute("offres", adsearchOfferList);
         return "AccueilAdsearch";
     }
