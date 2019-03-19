@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import fr.fabien.webcrawler.common.model.SilkhomOfferVo;
 
 
-@FeignClient(name = "gateway")
+@FeignClient(name = "web-crawler-connector-silkhom", url = "localhost:9002")
 public interface SilkhomOfferProxy {
 
 	@GetMapping(value = "/getOffers/silkhom", produces = { "application/json" })
