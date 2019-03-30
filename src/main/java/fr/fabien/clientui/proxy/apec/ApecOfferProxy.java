@@ -1,4 +1,4 @@
-package fr.fabien.clientui.proxy;
+package fr.fabien.clientui.proxy.apec;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package fr.fabien.clientui.proxy;
+package fr.fabien.clientui.proxy.silkhom;
 
 import java.util.List;
 

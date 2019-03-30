@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.fabien.clientui.proxy.AdsearchOfferProxy;
-import fr.fabien.clientui.proxy.ApecOfferProxy;
-import fr.fabien.clientui.proxy.SilkhomOfferProxy;
+import fr.fabien.clientui.proxy.adsearch.AdsearchOfferProxy;
+import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
+import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
+import fr.fabien.clientui.proxy.linkedin.LinkedinOfferVo;
+import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
 import fr.fabien.webcrawler.common.model.AdsearchOfferVo;
 import fr.fabien.webcrawler.common.model.ApecOfferVo;
 import fr.fabien.webcrawler.common.model.SilkhomOfferVo;
@@ -19,57 +21,71 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 public class ClientController {
+
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private static String MODEL = "offres";
 	
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-    
-    @Autowired
-    private ApecOfferProxy apecProxy;
+	@Autowired
+	private ApecOfferProxy apecProxy;
 
-    @Autowired
-    private SilkhomOfferProxy silkhomProxy;
-  
-    @Autowired
-    private AdsearchOfferProxy adsearchProxy;
- 
-    
-    @GetMapping("/")
-    public String accueil(Model model){
-    	return accueilApecWithKeyword(model,"java");
-    }
-    
-    @GetMapping("/apec")
-    public String accueilApec(Model model){
-    	return accueilApecWithKeyword(model,"java");
-    }
-    
-    @GetMapping("/apec/{keyword}")
-    public String accueilApecWithKeyword(Model model, @PathVariable String keyword){
-    	logger.info("Envoi requête vers apec-microservice - mots clé : {}",keyword);
-    	List<ApecOfferVo> apecOfferList =  apecProxy.apecOfferList(keyword);
-    	logger.info("Retour requête vers apec-microservice - nombre de résultats : {}", apecOfferList.size());
+	@Autowired
+	private SilkhomOfferProxy silkhomProxy;
 
-    	model.addAttribute("offres", apecOfferList);
-        return "AccueilApec";
-    }
-    
-    @GetMapping("/silkhom")
-    public String accueilSilkhom(Model model){
-    	logger.info("Envoi requête vers silkhom-microservice");
-        List<SilkhomOfferVo> silkhomOfferList =  silkhomProxy.adsearchsilkhomOfferList();
-        logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
-       
-        model.addAttribute("offres", silkhomOfferList);
-        return "AccueilSilkhom";
-    }
-    
-    @GetMapping("/adsearch")
-    public String accueilAdsearch(Model model){
-    	logger.info("Envoi requête vers asearch-microservice");
-        List<AdsearchOfferVo> adsearchOfferList =  adsearchProxy.adsearchOfferList();
-        logger.info("Retour requête vers asearch-microservice - nombre de résultats : {}", adsearchOfferList.size());
+	@Autowired
+	private AdsearchOfferProxy adsearchProxy;
 
-        model.addAttribute("offres", adsearchOfferList);
-        return "AccueilAdsearch";
-    }
+	@Autowired
+	private LinkedinOfferProxy linkedinProxy;
+
+	@GetMapping("/")
+	public String accueil(Model model) {
+		return accueilApecWithKeyword(model, "java");
+	}
+
+	@GetMapping("/apec")
+	public String accueilApec(Model model) {
+		return accueilApecWithKeyword(model, "java");
+	}
+
+	@GetMapping("/apec/{keyword}")
+	public String accueilApecWithKeyword(Model model, @PathVariable String keyword) {
+		logger.info("Envoi requête vers apec-microservice - mots clé : {}", keyword);
+		List<ApecOfferVo> apecOfferList = apecProxy.apecOfferList(keyword);
+		logger.info("Retour requête vers apec-microservice - nombre de résultats : {}", apecOfferList.size());
+
+		model.addAttribute(MODEL, apecOfferList);
+		return "AccueilApec";
+	}
+
+	@GetMapping("/silkhom")
+	public String accueilSilkhom(Model model) {
+		logger.info("Envoi requête vers silkhom-microservice");
+		List<SilkhomOfferVo> silkhomOfferList = silkhomProxy.adsearchsilkhomOfferList();
+		logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
+
+		model.addAttribute(MODEL, silkhomOfferList);
+		return "AccueilSilkhom";
+	}
+
+	@GetMapping("/adsearch")
+	public String accueilAdsearch(Model model) {
+		logger.info("Envoi requête vers asearch-microservice");
+		List<AdsearchOfferVo> adsearchOfferList = adsearchProxy.adsearchOfferList();
+		logger.info("Retour requête vers asearch-microservice - nombre de résultats : {}", adsearchOfferList.size());
+
+		model.addAttribute(MODEL, adsearchOfferList);
+		return "AccueilAdsearch";
+	}
+
+	@GetMapping("/linkedin")
+	public String accueilLinkedin(Model model) {
+		logger.info("Envoi requête vers linkedin-microservice");
+		List<LinkedinOfferVo> linkedinOfferList = linkedinProxy.linkedinOfferList();
+		logger.info("Retour requête vers linkedin-microservice - nombre de résultats : {}", linkedinOfferList.size());
+
+		model.addAttribute(MODEL, linkedinOfferList);
+		return "AccueilLinkedin";
+	}
 
 }

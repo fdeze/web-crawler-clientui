@@ -1,4 +1,4 @@
-package fr.fabien.clientui.proxy;
+package fr.fabien.clientui.proxy.adsearch;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import fr.fabien.webcrawler.common.model.AdsearchOfferVo;
 
 
 
-@FeignClient(name = "adsearch-microservice", url = "localhost:9000")
+@FeignClient(name = "web-crawler-connector-adsearch", url = "localhost:9000")
 public interface AdsearchOfferProxy {
 
 	@GetMapping(value = "/getOffers/adsearch")
