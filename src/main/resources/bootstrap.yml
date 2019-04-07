@@ -1,9 +1,4 @@
 spring:
   application:
     name: client-ui
-#Spring Security
-  security:
-    user:
-     name: utilisateur
-     password: Lam@86
      
