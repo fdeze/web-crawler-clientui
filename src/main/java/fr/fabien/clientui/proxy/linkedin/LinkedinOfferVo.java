@@ -3,8 +3,9 @@ package fr.fabien.clientui.proxy.linkedin;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import fr.fabien.webcrawler.common.model.AbstractOfferVo;
+import fr.fabien.clientui.proxy.AbstractOfferVo;
 
+ 
 public class LinkedinOfferVo extends AbstractOfferVo {
 
 	private String adresse;

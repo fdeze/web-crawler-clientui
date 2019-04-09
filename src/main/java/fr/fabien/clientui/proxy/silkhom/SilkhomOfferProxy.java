@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import fr.fabien.webcrawler.common.model.SilkhomOfferVo;
-
 
 @FeignClient(name = "web-crawler-connector-silkhom", url = "localhost:9002")
 public interface SilkhomOfferProxy {

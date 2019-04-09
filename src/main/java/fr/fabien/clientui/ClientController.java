@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.fabien.clientui.proxy.adsearch.AdsearchOfferProxy;
+import fr.fabien.clientui.proxy.adsearch.AdsearchOfferVo;
 import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
+import fr.fabien.clientui.proxy.apec.ApecOfferVo;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferVo;
 import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
-import fr.fabien.webcrawler.common.model.AdsearchOfferVo;
-import fr.fabien.webcrawler.common.model.ApecOfferVo;
-import fr.fabien.webcrawler.common.model.SilkhomOfferVo;
+import fr.fabien.clientui.proxy.silkhom.SilkhomOfferVo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
