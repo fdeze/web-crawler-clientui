@@ -26,7 +26,7 @@ public class ClientController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static String MODEL = "offres";
-	
+
 	@Autowired
 	private ApecOfferProxy apecProxy;
 
@@ -79,8 +79,13 @@ public class ClientController {
 		return "AccueilAdsearch";
 	}
 
+	@GetMapping("/apec")
+	public String accueilLinkedin(Model model) {
+		return accueilLinkedinWithKeyword(model, "java");
+	}
+
 	@GetMapping("/linkedin/{keyword}")
-	public String accueilLinkedin(Model model, @PathVariable String keyword) {
+	public String accueilLinkedinWithKeyword(Model model, @PathVariable String keyword) {
 		logger.info("Envoi requête vers linkedin-microservice - mots clé : {}", keyword);
 		List<LinkedinOfferVo> linkedinOfferList = linkedinProxy.linkedinOfferList(keyword);
 		logger.info("Retour requête vers linkedin-microservice - nombre de résultats : {}", linkedinOfferList.size());
