@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ApecOfferProxy {
 
 	@GetMapping(path = "/getOffers/apec/{keyword}", produces = { "application/json" })
-	List<ApecOfferVo> apecOfferList( @PathVariable String keyword);
+	List<ApecOfferVo> apecOfferList(@PathVariable String keyword);
 
 }

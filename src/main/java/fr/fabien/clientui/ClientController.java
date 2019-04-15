@@ -79,10 +79,10 @@ public class ClientController {
 		return "AccueilAdsearch";
 	}
 
-	@GetMapping("/linkedin")
-	public String accueilLinkedin(Model model) {
-		logger.info("Envoi requête vers linkedin-microservice");
-		List<LinkedinOfferVo> linkedinOfferList = linkedinProxy.linkedinOfferList();
+	@GetMapping("/linkedin/{keyword}")
+	public String accueilLinkedin(Model model, @PathVariable String keyword) {
+		logger.info("Envoi requête vers linkedin-microservice - mots clé : {}", keyword);
+		List<LinkedinOfferVo> linkedinOfferList = linkedinProxy.linkedinOfferList(keyword);
 		logger.info("Retour requête vers linkedin-microservice - nombre de résultats : {}", linkedinOfferList.size());
 
 		model.addAttribute(MODEL, linkedinOfferList);
