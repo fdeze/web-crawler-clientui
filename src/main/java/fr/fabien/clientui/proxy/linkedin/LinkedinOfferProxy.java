@@ -6,6 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fr.fabien.contracts.linkedin.LinkedinOfferVo;
+
 @FeignClient(name = "web-crawler-connector-linkedin", url = "localhost:9003")
 public interface LinkedinOfferProxy {
 

@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.fabien.clientui.proxy.adsearch.AdsearchOfferProxy;
-import fr.fabien.clientui.proxy.adsearch.AdsearchOfferVo;
 import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
-import fr.fabien.clientui.proxy.apec.ApecOfferVo;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
-import fr.fabien.clientui.proxy.linkedin.LinkedinOfferVo;
 import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
-import fr.fabien.clientui.proxy.silkhom.SilkhomOfferVo;
+import fr.fabien.clientui.proxy.welcometothejungle.WelcomeToTheJungleOfferProxy;
+import fr.fabien.contracts.adsearch.AdsearchOfferVo;
+import fr.fabien.contracts.apec.ApecOfferVo;
+import fr.fabien.contracts.linkedin.LinkedinOfferVo;
+import fr.fabien.contracts.silkhom.SilkhomOfferVo;
+import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferOfferVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,10 @@ public class ClientController {
 	@Autowired
 	private LinkedinOfferProxy linkedinProxy;
 
+	@Autowired
+	private WelcomeToTheJungleOfferProxy welcomeToTheJungleProxy;
+	
+	
 	@GetMapping("/")
 	public String accueil(Model model) {
 		return accueilApecWithKeyword(model, "java");
@@ -79,7 +85,7 @@ public class ClientController {
 		return "AccueilAdsearch";
 	}
 
-	@GetMapping("/apec")
+	@GetMapping("/linkedin")
 	public String accueilLinkedin(Model model) {
 		return accueilLinkedinWithKeyword(model, "java");
 	}
@@ -93,5 +99,21 @@ public class ClientController {
 		model.addAttribute(MODEL, linkedinOfferList);
 		return "AccueilLinkedin";
 	}
+	
+	@GetMapping("/welcomeToTheJungle")
+	public String accueilWelcomeToTheJungle(Model model) {
+		return accueilWelcomeToTheJungleWithKeyword(model, "java");
+	}
+
+	@GetMapping("/welcomeToTheJungle/{keyword}")
+	public String accueilWelcomeToTheJungleWithKeyword(Model model, @PathVariable String keyword) {
+		logger.info("Envoi requête vers welcomeToTheJungle-microservice - mots clé : {}", keyword);
+		List<WelcomeToTheJungleOfferOfferVo> welcomeToTheJungleOfferList = welcomeToTheJungleProxy.welcometothejungleOfferList(keyword);
+		logger.info("Retour requête vers welcomeToTheJungle-microservice - nombre de résultats : {}", welcomeToTheJungleOfferList.size());
+
+		model.addAttribute(MODEL, welcomeToTheJungleOfferList);
+		return "AccueilWelcomeToTheJungle";
+	}
+	
 
 }
