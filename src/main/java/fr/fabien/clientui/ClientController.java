@@ -17,7 +17,7 @@ import fr.fabien.contracts.adsearch.AdsearchOfferVo;
 import fr.fabien.contracts.apec.ApecOfferVo;
 import fr.fabien.contracts.linkedin.LinkedinOfferVo;
 import fr.fabien.contracts.silkhom.SilkhomOfferVo;
-import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferOfferVo;
+import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class ClientController {
 	
 	@GetMapping("/")
 	public String accueil(Model model) {
-		return accueilApecWithKeyword(model, "java");
+		return "Accueil";
 	}
 
 	@GetMapping("/apec")
@@ -62,7 +62,7 @@ public class ClientController {
 		logger.info("Retour requête vers apec-microservice - nombre de résultats : {}", apecOfferList.size());
 
 		model.addAttribute(MODEL, apecOfferList);
-		return "AccueilApec";
+		return "AccueilComplet";
 	}
 
 	@GetMapping("/silkhom")
@@ -72,7 +72,7 @@ public class ClientController {
 		logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
 
 		model.addAttribute(MODEL, silkhomOfferList);
-		return "AccueilSilkhom";
+		return "AccueilComplet";
 	}
 
 	@GetMapping("/adsearch")
@@ -82,7 +82,7 @@ public class ClientController {
 		logger.info("Retour requête vers asearch-microservice - nombre de résultats : {}", adsearchOfferList.size());
 
 		model.addAttribute(MODEL, adsearchOfferList);
-		return "AccueilAdsearch";
+		return "AccueilComplet";
 	}
 
 	@GetMapping("/linkedin")
@@ -97,7 +97,7 @@ public class ClientController {
 		logger.info("Retour requête vers linkedin-microservice - nombre de résultats : {}", linkedinOfferList.size());
 
 		model.addAttribute(MODEL, linkedinOfferList);
-		return "AccueilLinkedin";
+		return "AccueilComplet";
 	}
 	
 	@GetMapping("/welcomeToTheJungle")
@@ -108,11 +108,11 @@ public class ClientController {
 	@GetMapping("/welcomeToTheJungle/{keyword}")
 	public String accueilWelcomeToTheJungleWithKeyword(Model model, @PathVariable String keyword) {
 		logger.info("Envoi requête vers welcomeToTheJungle-microservice - mots clé : {}", keyword);
-		List<WelcomeToTheJungleOfferOfferVo> welcomeToTheJungleOfferList = welcomeToTheJungleProxy.welcometothejungleOfferList(keyword);
+		List<WelcomeToTheJungleOfferVo> welcomeToTheJungleOfferList = welcomeToTheJungleProxy.welcometothejungleOfferList(keyword);
 		logger.info("Retour requête vers welcomeToTheJungle-microservice - nombre de résultats : {}", welcomeToTheJungleOfferList.size());
 
 		model.addAttribute(MODEL, welcomeToTheJungleOfferList);
-		return "AccueilWelcomeToTheJungle";
+		return "AccueilComplet";
 	}
 	
 

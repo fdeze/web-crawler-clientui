@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.fabien.contracts.linkedin.LinkedinOfferVo;
 
-@FeignClient(name = "web-crawler-connector-linkedin", url = "localhost:9003")
+@FeignClient(name = "web-crawler-connector-linkedin", url = "localhost:9010")
 public interface LinkedinOfferProxy {
 
 	@GetMapping(value = "/getOffers/linkedin/{keyword}", produces = { "application/json" })

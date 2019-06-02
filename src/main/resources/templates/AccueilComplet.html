@@ -19,7 +19,10 @@
 				   <div class="col-md-2"><img th:src="@{ ${offre.urlLogo} }" />
 				   </div>
 				</div> 
-				
+				<p>
+					Date publication : <small><span
+						th:text="${offre.datePublication}"></span></small>
+				</p>
 				
 				<p>
 					Salaire : 
@@ -32,14 +35,12 @@
 				<p>
 					Adresse offre : 
 					<small><span th:text="${offre.adresse}"></span></small>
-					Adresse siege : 
-					<small><span th:text="${offre.adresseSiege}"></span></small>
 				</p>				
 								
 				
-				Description de l'offre : <small><p th:utext="${offre.texteHtml}"></p></small>
-				Profil: <small><p th:utext="${offre.texteProfil}"></p></small>
-				Description de l'entreprise : <small><p th:utext="${offre.texteEntreprise}"></p></small>		
+				Description de l'offre : <small><p th:utext="${offre.descriptionOffre}"></p></small>
+				Profil: <small><p th:utext="${offre.descriptionProfil}"></p></small>
+				Description de l'entreprise : <small><p th:utext="${offre.descriptionEntreprise}"></p></small>		
 				
 			</div>
 		</div>
