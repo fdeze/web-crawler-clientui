@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.fabien.clientui.proxy.adsearch.AdsearchOfferProxy;
 import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
+import fr.fabien.clientui.proxy.indeed.IndeedOfferProxy;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
 import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
 import fr.fabien.clientui.proxy.welcometothejungle.WelcomeToTheJungleOfferProxy;
+import fr.fabien.contracts.OfferVo;
 import fr.fabien.contracts.adsearch.AdsearchOfferVo;
 import fr.fabien.contracts.apec.ApecOfferVo;
 import fr.fabien.contracts.linkedin.LinkedinOfferVo;
-import fr.fabien.contracts.silkhom.SilkhomOfferVo;
 import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferVo;
 
 import org.slf4j.Logger;
@@ -44,6 +45,8 @@ public class ClientController {
 	@Autowired
 	private WelcomeToTheJungleOfferProxy welcomeToTheJungleProxy;
 	
+	@Autowired
+	private IndeedOfferProxy indeedProxy;
 	
 	@GetMapping("/")
 	public String accueil(Model model) {
@@ -68,7 +71,7 @@ public class ClientController {
 	@GetMapping("/silkhom")
 	public String accueilSilkhom(Model model) {
 		logger.info("Envoi requête vers silkhom-microservice");
-		List<SilkhomOfferVo> silkhomOfferList = silkhomProxy.adsearchsilkhomOfferList();
+		List<OfferVo> silkhomOfferList = silkhomProxy.adsearchsilkhomOfferList();
 		logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
 
 		model.addAttribute(MODEL, silkhomOfferList);
@@ -99,7 +102,7 @@ public class ClientController {
 		model.addAttribute(MODEL, linkedinOfferList);
 		return "AccueilComplet";
 	}
-	
+
 	@GetMapping("/welcomeToTheJungle")
 	public String accueilWelcomeToTheJungle(Model model) {
 		return accueilWelcomeToTheJungleWithKeyword(model, "java");
@@ -108,12 +111,28 @@ public class ClientController {
 	@GetMapping("/welcomeToTheJungle/{keyword}")
 	public String accueilWelcomeToTheJungleWithKeyword(Model model, @PathVariable String keyword) {
 		logger.info("Envoi requête vers welcomeToTheJungle-microservice - mots clé : {}", keyword);
-		List<WelcomeToTheJungleOfferVo> welcomeToTheJungleOfferList = welcomeToTheJungleProxy.welcometothejungleOfferList(keyword);
-		logger.info("Retour requête vers welcomeToTheJungle-microservice - nombre de résultats : {}", welcomeToTheJungleOfferList.size());
+		List<WelcomeToTheJungleOfferVo> welcomeToTheJungleOfferList = welcomeToTheJungleProxy
+				.welcometothejungleOfferList(keyword);
+		logger.info("Retour requête vers welcomeToTheJungle-microservice - nombre de résultats : {}",
+				welcomeToTheJungleOfferList.size());
 
 		model.addAttribute(MODEL, welcomeToTheJungleOfferList);
 		return "AccueilComplet";
 	}
-	
 
+	@GetMapping("/indeed")
+	public String accueilIndeed(Model model) {
+		return accueilIndeedWithKeyword(model, "java");
+	}
+	
+	@GetMapping("/indeed/{keyword}")
+	public String accueilIndeedWithKeyword(Model model, @PathVariable String keyword) {
+		logger.info("Envoi requête vers indeed-microservice - mots clé : {}", keyword);
+		List<OfferVo> indeedOfferList = indeedProxy.indeedOfferList(keyword);
+		logger.info("Retour requête vers indeed-microservice - nombre de résultats : {}", indeedOfferList.size());
+
+		model.addAttribute(MODEL, indeedOfferList);
+		return "AccueilComplet";
+	}
+	
 }

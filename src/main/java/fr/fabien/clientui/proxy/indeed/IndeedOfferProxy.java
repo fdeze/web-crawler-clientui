@@ -1,0 +1,18 @@
+package fr.fabien.clientui.proxy.indeed;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import fr.fabien.contracts.OfferVo;
+
+
+@FeignClient(name = "web-crawler-connector-indeed", url = "localhost:9010")
+public interface IndeedOfferProxy {
+
+	@GetMapping(value = "/getOffers/indeed/{keyword}", produces = { "application/json" })
+	List<OfferVo> indeedOfferList(@PathVariable String keyword);
+
+}
