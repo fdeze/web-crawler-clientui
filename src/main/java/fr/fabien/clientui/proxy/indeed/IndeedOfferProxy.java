@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import fr.fabien.contracts.OfferVo;
 
 
-@FeignClient(name = "web-crawler-connector-indeed", url = "localhost:9010")
+@FeignClient(name = "web-crawler-connector-indeed", url = "localhost:9005")
 public interface IndeedOfferProxy {
 
 	@GetMapping(value = "/getOffers/indeed/{keyword}", produces = { "application/json" })
