@@ -8,14 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.fabien.clientui.proxy.adsearch.AdsearchOfferProxy;
+import fr.fabien.clientui.proxy.ffg.FfgOfferProxy;
 import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
 import fr.fabien.clientui.proxy.indeed.IndeedOfferProxy;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
 import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
 import fr.fabien.clientui.proxy.welcometothejungle.WelcomeToTheJungleOfferProxy;
 import fr.fabien.contracts.OfferVo;
-import fr.fabien.contracts.adsearch.AdsearchOfferVo;
+import fr.fabien.contracts.ffg.FfgOfferVo;
 import fr.fabien.contracts.apec.ApecOfferVo;
 import fr.fabien.contracts.linkedin.LinkedinOfferVo;
 import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferVo;
@@ -37,7 +37,7 @@ public class ClientController {
 	private SilkhomOfferProxy silkhomProxy;
 
 	@Autowired
-	private AdsearchOfferProxy adsearchProxy;
+	private FfgOfferProxy ffgProxy;
 
 	@Autowired
 	private LinkedinOfferProxy linkedinProxy;
@@ -71,20 +71,20 @@ public class ClientController {
 	@GetMapping("/silkhom")
 	public String accueilSilkhom(Model model) {
 		logger.info("Envoi requête vers silkhom-microservice");
-		List<OfferVo> silkhomOfferList = silkhomProxy.adsearchsilkhomOfferList();
+		List<OfferVo> silkhomOfferList = silkhomProxy.silkhomOfferList();
 		logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
 
 		model.addAttribute(MODEL, silkhomOfferList);
 		return "AccueilComplet";
 	}
 
-	@GetMapping("/adsearch")
-	public String accueilAdsearch(Model model) {
-		logger.info("Envoi requête vers asearch-microservice");
-		List<AdsearchOfferVo> adsearchOfferList = adsearchProxy.adsearchOfferList();
-		logger.info("Retour requête vers asearch-microservice - nombre de résultats : {}", adsearchOfferList.size());
+	@GetMapping("/ffg")
+	public String accueilffg(Model model) {
+		logger.info("Envoi requête vers ffg-microservice");
+		List<FfgOfferVo> ffgOfferList = ffgProxy.ffgOfferList();
+		logger.info("Retour requête vers ffg-microservice - nombre de résultats : {}", ffgOfferList.size());
 
-		model.addAttribute(MODEL, adsearchOfferList);
+		model.addAttribute(MODEL, ffgOfferList);
 		return "AccueilComplet";
 	}
 

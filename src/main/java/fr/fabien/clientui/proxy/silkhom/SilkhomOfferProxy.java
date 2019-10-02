@@ -12,6 +12,6 @@ import fr.fabien.contracts.OfferVo;
 public interface SilkhomOfferProxy {
 
 	@GetMapping(value = "/getOffers/silkhom", produces = { "application/json" })
-	List<OfferVo> adsearchsilkhomOfferList();
+	List<OfferVo> silkhomOfferList();
 
 }
