@@ -30,6 +30,8 @@ public class ClientController {
 
 	private static String MODEL = "offres";
 
+	private static String AccueilComplet = "AccueilComplet";
+
 	@Autowired
 	private ApecOfferProxy apecProxy;
 
@@ -44,10 +46,10 @@ public class ClientController {
 
 	@Autowired
 	private WelcomeToTheJungleOfferProxy welcomeToTheJungleProxy;
-	
+
 	@Autowired
 	private IndeedOfferProxy indeedProxy;
-	
+
 	@GetMapping("/")
 	public String accueil(Model model) {
 		return "Accueil";
@@ -55,17 +57,18 @@ public class ClientController {
 
 	@GetMapping("/apec")
 	public String accueilApec(Model model) {
-		return accueilApecWithKeyword(model, "java");
+		return accueilApecWithLocationAndKeyword(model, "69", "java");
 	}
 
-	@GetMapping("/apec/{keyword}")
-	public String accueilApecWithKeyword(Model model, @PathVariable String keyword) {
-		logger.info("Envoi requête vers apec-microservice - mots clé : {}", keyword);
-		List<ApecOfferVo> apecOfferList = apecProxy.apecOfferList(keyword);
+	@GetMapping("/apec/{location}/{keyword}")
+	public String accueilApecWithLocationAndKeyword(Model model, @PathVariable String location,
+			@PathVariable String keyword) {
+		logger.info("Envoi requête vers apec-microservice - localisation : {} - mots clé : {}", location, keyword);
+		List<ApecOfferVo> apecOfferList = apecProxy.apecOfferList(location, keyword);
 		logger.info("Retour requête vers apec-microservice - nombre de résultats : {}", apecOfferList.size());
 
 		model.addAttribute(MODEL, apecOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
 
 	@GetMapping("/silkhom")
@@ -75,7 +78,7 @@ public class ClientController {
 		logger.info("Retour requête vers silkhom-microservice - nombre de résultats : {}", silkhomOfferList.size());
 
 		model.addAttribute(MODEL, silkhomOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
 
 	@GetMapping("/ffg")
@@ -85,7 +88,7 @@ public class ClientController {
 		logger.info("Retour requête vers ffg-microservice - nombre de résultats : {}", ffgOfferList.size());
 
 		model.addAttribute(MODEL, ffgOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
 
 	@GetMapping("/linkedin")
@@ -100,7 +103,7 @@ public class ClientController {
 		logger.info("Retour requête vers linkedin-microservice - nombre de résultats : {}", linkedinOfferList.size());
 
 		model.addAttribute(MODEL, linkedinOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
 
 	@GetMapping("/welcomeToTheJungle")
@@ -117,22 +120,33 @@ public class ClientController {
 				welcomeToTheJungleOfferList.size());
 
 		model.addAttribute(MODEL, welcomeToTheJungleOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
 
 	@GetMapping("/indeed")
 	public String accueilIndeed(Model model) {
 		return accueilIndeedWithKeyword(model, "java");
 	}
-	
+
 	@GetMapping("/indeed/{keyword}")
 	public String accueilIndeedWithKeyword(Model model, @PathVariable String keyword) {
 		logger.info("Envoi requête vers indeed-microservice - mots clé : {}", keyword);
-		List<OfferVo> indeedOfferList = indeedProxy.indeedOfferList(keyword);
+		List<OfferVo> indeedOfferList = indeedProxy.indeedOfferList("Lyon", keyword);
 		logger.info("Retour requête vers indeed-microservice - nombre de résultats : {}", indeedOfferList.size());
 
 		model.addAttribute(MODEL, indeedOfferList);
-		return "AccueilComplet";
+		return AccueilComplet;
 	}
-	
+
+	@GetMapping("/indeed/{location}/{keyword}")
+	public String accueilIndeedWithLocationAndKeyword(Model model, @PathVariable String location,
+			@PathVariable String keyword) {
+		logger.info("Envoi requête vers indeed-microservice - mots clé : {}", keyword);
+		List<OfferVo> indeedOfferList = indeedProxy.indeedOfferList(location, keyword);
+		logger.info("Retour requête vers indeed-microservice - nombre de résultats : {}", indeedOfferList.size());
+
+		model.addAttribute(MODEL, indeedOfferList);
+		return AccueilComplet;
+	}
+
 }

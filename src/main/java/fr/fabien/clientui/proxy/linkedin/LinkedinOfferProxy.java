@@ -12,6 +12,6 @@ import fr.fabien.contracts.linkedin.LinkedinOfferVo;
 public interface LinkedinOfferProxy {
 
 	@GetMapping(value = "/getOffers/linkedin/{keyword}", produces = { "application/json" })
-	List<LinkedinOfferVo> linkedinOfferList(@PathVariable String keyword);
+	List<LinkedinOfferVo> linkedinOfferList(@PathVariable(value = "keyword") String keyword);
 
 }

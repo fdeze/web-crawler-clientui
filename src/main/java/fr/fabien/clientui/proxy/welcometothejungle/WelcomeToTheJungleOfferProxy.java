@@ -12,6 +12,6 @@ import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferVo;
 public interface WelcomeToTheJungleOfferProxy {
 
 	@GetMapping(path = "/getOffers/welcometothejungle/{keyword}", produces = { "application/json" })
-	List<WelcomeToTheJungleOfferVo> welcometothejungleOfferList(@PathVariable String keyword);
+	List<WelcomeToTheJungleOfferVo> welcometothejungleOfferList(@PathVariable(value = "keyword") String keyword);
 
 }

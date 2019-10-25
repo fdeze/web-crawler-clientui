@@ -14,7 +14,7 @@
 				style="border: 1px dotted black;">
 
 				<div class="row">
-				    <div class="col-md-9"><a th:href="@{${offre.url}}">	<p th:text="${offre.titre}"></p></a>
+				    <div class="col-md-9"><a th:href="@{${offre.url}}" target="_blank">	<p th:text="${offre.titre}"></p></a>
 				   </div>
 				   <div class="col-md-2"><img th:src="@{ ${offre.urlLogo} }" />
 				   </div>
@@ -30,7 +30,7 @@
 				</p>
 				<p>
 					Entreprise : 
-					<small><span th:text="${offre.entreprise}"></span></small>
+					<small><strong><span th:text="${offre.entreprise}"></span></strong></small>
 				</p>
 				<p>
 					Adresse offre : 
