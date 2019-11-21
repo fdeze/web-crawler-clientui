@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.fabien.clientui.proxy.ffg.FfgOfferProxy;
 import fr.fabien.clientui.proxy.apec.ApecOfferProxy;
+import fr.fabien.clientui.proxy.cyclable.CycableOfferProxy;
 import fr.fabien.clientui.proxy.indeed.IndeedOfferProxy;
 import fr.fabien.clientui.proxy.linkedin.LinkedinOfferProxy;
 import fr.fabien.clientui.proxy.silkhom.SilkhomOfferProxy;
@@ -19,6 +20,7 @@ import fr.fabien.contracts.ffg.FfgOfferVo;
 import fr.fabien.contracts.apec.ApecOfferVo;
 import fr.fabien.contracts.linkedin.LinkedinOfferVo;
 import fr.fabien.contracts.welcometothejungle.WelcomeToTheJungleOfferVo;
+import fr.fabien.product.ProductVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +31,10 @@ public class ClientController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static String MODEL = "offres";
+	private static String MODEL_PRODUITS = "produits";
 
-	private static String AccueilComplet = "AccueilComplet";
-
+	private static String AccueilComplet = "AccueilOffresComplet";
+	private static String AccueilProduitsComplet = "AccueilProduitsComplet";
 	@Autowired
 	private ApecOfferProxy apecProxy;
 
@@ -50,6 +53,9 @@ public class ClientController {
 	@Autowired
 	private IndeedOfferProxy indeedProxy;
 
+	@Autowired
+	private CycableOfferProxy cyclableProxy;
+	
 	@GetMapping("/")
 	public String accueil(Model model) {
 		return "Accueil";
@@ -148,5 +154,15 @@ public class ClientController {
 		model.addAttribute(MODEL, indeedOfferList);
 		return AccueilComplet;
 	}
-
+	
+	
+	@GetMapping("/cyclable")
+	public String accueilCyclable(Model model) {
+		logger.info("Envoi requête vers cyclable-microservice");
+		List<ProductVo> cyclableProductList = cyclableProxy.cyclableProductList();
+		logger.info("Retour requête vers cyclable-microservice - nombre de résultats : {}", cyclableProductList.size());
+		
+		model.addAttribute(MODEL_PRODUITS, cyclableProductList);
+		return AccueilProduitsComplet;
+	}
 }
