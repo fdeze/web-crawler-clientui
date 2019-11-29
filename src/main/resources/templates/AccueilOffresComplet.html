@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>EmploisFrictifs</title>
+<title>Emplois</title>
 <link rel="stylesheet" type="text/css"
 	href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
 
 <body>
 	<div class="container-fluid">
-		<h1 th:text="'EmploisFrictifs : ' + ${#lists.size(offres)} + ' r&eacute;sulats' "> </h1>
+		<h1 th:text="'Emplois : ' + ${#lists.size(offres)} + ' r&eacute;sulats' "> </h1>
  		<div class="row">
 			<div th:each="offre : ${offres}" class="col-md-4 my-1"
 				style="border: 1px dotted black;">
